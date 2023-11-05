@@ -1,10 +1,28 @@
 .productDisplaySection {
-    margin-left: 16%;
+    margin-left: 2%;
     padding-top: 2%;
 }
 
 .productDisplayimg {
+    width: 54%;
     height: 300px;
+    object-fit: contain;
+    transition: transform 0.5s;
+}
+
+.imgContainer {
+    width: 100%;
+    /* max-height: 400px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* background-color: #000000; */
+}
+
+.productDisplayimg.active {
+    opacity: 1;
 }
 
 .chevronLeft {
@@ -13,11 +31,12 @@
     background-color: white;
     border-radius: 50px;
     border: 1px grey solid;
-    padding: 5px;
+    padding: 1%;
     z-index: 3;
     position: absolute;
-    left: 2%;
-    top: 43%;
+    /* left: 2%;
+    top: 43%; */
+    left: 10px
 }
 
 .chevronRight {
@@ -26,17 +45,19 @@
     background-color: white;
     border-radius: 50px;
     border: 1px grey solid;
-    padding: 5px;
+    padding: 1%;
     z-index: 3;
     position: absolute;
-    right: 2%;
-    top: 43%;
+    right: 10px
 }
 
 .chevronLeft:active,
 .chevronRight:active,
-.closeIcon:active {
+.closeIcon:active,
+.buttonAddCart:active {
     color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0);
+
 }
 
 .chevronLeft:hover,
@@ -48,25 +69,36 @@
 
 }
 
-#imgContainer {
-    text-align: center;
-    position: relative;
-}
-
 .productDisplayInfo {
     display: grid;
     grid-template-columns: 50% 50%;
-    column-gap: 50px;
+    margin: 20px;
 }
 
 .productImgInfo {
-    margin: 20px;
-    padding: 20px;
-    font-size: 26px;
+    font-size: 24px;
     color: #333333;
-    font-style: italic;
-    font-weight: 450;
-    font-style: arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.productDisplayRatings {
+    font-size: 16px;
+    padding: 0px 8px;
+    border-radius: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #26a541;
+    display: flex;
+    color: white;
+    max-width: 65px;
+}
+
+.productDisplayStarIcon {
+    margin: 3px 0px 4px;
 }
 
 .closeIcon {
@@ -89,4 +121,25 @@
     border-radius: 5px;
     width: 200px;
     margin-top: 10px;
+}
+
+.priceContainer div {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.productDisplayDiscount {
+    font-size: 26px;
+}
+
+.productDisplayPrice {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.productDisplayPercent {
+    font-size: 16px;
+    font-weight: 600;
+    color: #26a541;
 }

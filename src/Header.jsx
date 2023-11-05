@@ -1,30 +1,57 @@
-import React, { useState } from 'react';
+import { React, useEffect } from 'react';
 import './HeaderCss.css';
-import { FaShoppingCart, FaCartPlus } from 'react-icons/fa';
-const Header = (props, product, { ToggleCart }) => {
+import { FaOpencart, FaCartPlus, FaUserPlus } from 'react-icons/fa';
+import Cart from './Cart';
+import { Link, useNavigate } from 'react-router-dom'
+const Header = (props) => {
+    let Username = localStorage.getItem("name");
+    const Navigate = useNavigate();
+
     const handleChange = (e) => {
-        const searchTerm = e.target.value;
+        const searchTerm = e.target.value.replace(/[^a-z]/ig, '');
         props.setSearchTerm(searchTerm);
     };
 
+    const handleAddAccount = () => {
+        return Navigate("/RegisterPage");
+    }
+
+    const handleClearData = () => {
+        localStorage.removeItem("name");
+        localStorage.removeItem("email");
+        window.location.reload();
+    }
+    // console.log(localStorage("users"));
+
     return (
         <>
-            <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: "center" }}>
-                <div id="logo">
-                    <FaShoppingCart className='img' />
-                    <p id="logoName"><b><i>Shoppi</i></b></p>
+            <div className='header'>
+                <div id="logo" onClick={() => Navigate('/')}>
+                    <FaOpencart className='img' />
+                    <div id="logoName">Shoppi</div>
                 </div>
-                <div>
-                    <input type="text" placeholder="Search for products" onChange={() => handleChange(product)} />
+                <div className='search-box'>
+                    <input type="text" placeholder="Search for products" onChange={handleChange} />
                 </div>
                 <div id='registerBox'>
-                    <button className='register'>Sign in</button>
-                    <button className='register'>Log in</button>
+                    {(localStorage.getItem("name")) ?
+                        (<div id='nameBox'><div id='UserName'>{Username}</div>
+                            <div id='loginContainer'>
+                                <div className="loginOption" onClick={handleAddAccount}><FaUserPlus />Add account</div>
+                                <div className="loginOption" onClick={handleClearData}>Logout</div>
+                            </div></div>)
+                        : (<><Link to={"/RegisterPage"}><button className='register'>Sign in</button></Link>
+                            <Link to={"/LoginPage"}><button className='register'>Log in</button></Link></>)}
                 </div>
+                <div className='cart-button'>
+                    <FaCartPlus id='icons' onClick={props.ToggleCart} />
+                    <span className='cart-count' onClick={props.ToggleCart}>{(props.cart.length)}</span>
+                </div>
+                {props.isCartVisible && (
+                    <Cart cart={props.cart} isCartVisible={props.isCartVisible}
+                        ToggleCart={props.ToggleCart} />)}
+            </div >
 
-                <FaCartPlus id='icons' onClick={() => ToggleCart(product)} />
-                {/* <p className='cartQuantity'>{size}</p> */}
-            </header>
         </>
     );
 };

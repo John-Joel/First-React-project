@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductDetails from './ProductDetails';
+import { FaStar } from 'react-icons/fa'
 import './Product.css'
 
-const Product = (props, { AddToCart }) => {
+const Product = (props) => {
     const [products, setProducts] = useState([]);
     const [sortByPriceLow, setSortByPriceLow] = useState();
     const [sortByPriceHigh, setSortByPriceHigh] = useState();
@@ -34,7 +35,7 @@ const Product = (props, { AddToCart }) => {
     };
 
     const filteredProducts = products.filter((product) =>
-        product.category.toLowerCase().includes(props.searchTerm.toLowerCase())
+        product.category.toLowerCase().includes(props.searchTerm)
     );
 
     const filteredBrand = selectedBrands.length > 0
@@ -57,9 +58,9 @@ const Product = (props, { AddToCart }) => {
     }
 
     return (
-        <div>
+        <div id='section'>
             <div className='sideBar'>
-                <div  >
+                <div className='barContainer'>
                     <h4>Filter by Price</h4>
                     <label className="inlineSidebar">
                         low to high
@@ -70,7 +71,7 @@ const Product = (props, { AddToCart }) => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         high to low
                         <input className='checkBox'
@@ -80,7 +81,7 @@ const Product = (props, { AddToCart }) => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <h4>Filter by Brand</h4>
                     <label className="inlineSidebar">
                         Apple
@@ -92,7 +93,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         OPPO
                         <input className='checkBox'
@@ -103,7 +104,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Samsung
                         <input className='checkBox'
@@ -114,7 +115,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Huawei
                         <input className='checkBox'
@@ -125,7 +126,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         HP Pavilion
                         <input className='checkBox'
@@ -136,7 +137,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Royal_Mirage
                         <input className='checkBox'
@@ -146,7 +147,7 @@ const Product = (props, { AddToCart }) => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Hemani Tea
                         <input className='checkBox'
@@ -157,7 +158,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Fauji
                         <input className='checkBox'
@@ -167,7 +168,7 @@ const Product = (props, { AddToCart }) => {
                         />
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         Golden
                         <input className='checkBox'
@@ -178,7 +179,7 @@ const Product = (props, { AddToCart }) => {
 
                     </label>
                 </div>
-                <div>
+                <div className='barContainer'>
                     <label className="inlineSidebar">
                         LED Lights
                         <input className='checkBox'
@@ -192,11 +193,10 @@ const Product = (props, { AddToCart }) => {
 
             </div>
 
-
-
             < div className='content'>
                 {selectedProduct ? (
-                    <ProductDetails product={selectedProduct} onClose={handleCloseDetails} AddToCart={AddToCart} />
+                    <ProductDetails product={selectedProduct} Product={Product}
+                        handleAddProduct={props.handleAddProduct} onClose={handleCloseDetails} convertToINR={props.convertToINR} />
                 ) : (
                     <div className='productList'>
                         {filteredBrand.map((product) => (
@@ -205,7 +205,15 @@ const Product = (props, { AddToCart }) => {
                                     <img src={product.images[0]} alt='product' />
                                 </div>
                                 <h5 className='productInfo'>{product.title}</h5>
-                                <p className='price'>Price: ${product.price}</p>
+                                <div className='priceContainer'>
+                                    <p className='priceDiscount'>&#8377;{((props.convertToINR(product.price)) *
+                                        (1 - (product.discountPercentage / 100))).toFixed(2)}</p>
+                                    <p className='price'><del>&#8377;{props.convertToINR(product.price)}</del></p>
+                                    <p className='pricePercent'>({product.discountPercentage}% off)</p>
+                                </div>
+                                <button className='productRatings'>{product.rating}
+                                    <div><FaStar className='starIcon' /></div></button>
+                                <p className='productStock'>Stock available: {product.stock}</p>
                             </div>
                         ))}
                     </div>

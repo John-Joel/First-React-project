@@ -1,38 +1,54 @@
-header {
-    display: flex;
-    background-color: #007BFF;
+.header {
+    display: grid;
+    grid-template-columns: 15% 55% 20% 10%;
+    align-items: center;
+    background-color: #007bff;
     position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0%;
+    left: 0%;
+    right: 0%;
     color: #FFF;
-    z-index: 100;
+    z-index: 99;
+    /* height: 5%; */
 }
 
-#icons {
-    width: 30px;
-    height: 30px;
-    color: yellow;
+.search-box {
+    display: flex;
+    justify-content: center;
 }
 
 #logo {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding-top: 6px;
+    border: 1px solid transparent;
+    margin: 3%;
+    cursor: pointer;
 }
 
-#logo .img {
+#logo:hover,
+.register:hover {
+    border: 1px solid white;
+}
+
+.cart-button:hover {
+    opacity: 0.9;
+}
+
+.cart-button:active {
+    opacity: 0.2;
+}
+
+.img {
     font-size: 26px;
-    margin-bottom: 13px;
     color: rgb(255, 0, 106);
 }
 
 #logoName {
     font-size: 26px;
-    margin-left: -2px;
     color: white;
+    font-weight: bold;
+    font-style: italic;
 }
 
 .register {
@@ -43,21 +59,76 @@ header {
     font-weight: 600;
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid transparent;
 }
 
 #registerBox {
-    display: grid;
-    grid-template-columns: 49% 45%;
-    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
-.cartQuantity {
-    color: white;
-    padding: 0 3px;
-    font-weight: bold;
-    background-color: red;
-    border-radius: 5px;
+#icons {
+    font-size: 35px;
+    color: yellow;
     position: relative;
-    top: -15px;
+}
+
+.cart-count {
+    color: white;
+    padding: 0px 4px;
+    font-weight: bold;
+    background-color: black;
+    border-radius: 50%;
     z-index: 100;
+    position: absolute;
+    right: 1%;
+    top: 10%;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.cart-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    border: none;
+    color: yellow;
+    margin-right: 11%;
+}
+
+#UserName {
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#loginContainer {
+    position: absolute;
+    border: 1px solid transparent;
+    background-color: #FF8300;
+    visibility: hidden;
+    padding: 10px;
+}
+
+.loginOption {
+    padding: 5px;
+    color: rgb(252, 248, 248);
+    z-index: 100;
+    text-align: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+#UserName:hover~#loginContainer,
+#loginContainer:hover {
+    visibility: visible;
+}
+
+#nameBox:hover>#UserName,
+#UserName:hover~#loginContainer,
+#UserName:hover,
+.loginOption:hover {
+    border: 1px solid #fff;
 }
